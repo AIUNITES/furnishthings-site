@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 2: First Apartment — GrowWith Modular | FurnishThings</title>
+  <meta name="description" content="Expand your modular furniture into a full apartment. Add seating, dining, and entertainment to the pieces you already own.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛋️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .phase-hero{padding:8rem 0 4rem;background:linear-gradient(135deg,var(--cream),#fff);position:relative;overflow:hidden}
+    .phase-hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(16,185,129,0.08) 0%,transparent 70%);border-radius:50%}
+    .phase-badge{display:inline-flex;align-items:center;gap:8px;padding:0.5rem 1rem;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:50px;font-size:0.8rem;font-weight:600;color:#059669;margin-bottom:1.25rem}
+    .phase-hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:1rem}
+    .phase-hero h1 .highlight{color:#059669}
+    .phase-hero .lead{font-size:1.1rem;color:var(--gray);max-width:560px;margin-bottom:2rem}
+    .phase-nav{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem}
+    .phase-nav a{padding:0.6rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;border:1px solid rgba(0,0,0,0.1);transition:all 0.3s}
+    .phase-nav a.current{background:#059669;color:#fff;border-color:#059669}
+    .phase-nav a.done{background:rgba(16,185,129,0.08);border-color:#10b981;color:#059669}
+    .phase-nav a:not(.current):not(.done):hover{background:rgba(16,185,129,0.08);border-color:#059669;color:#059669}
+    .phase-stats{display:flex;gap:2rem;flex-wrap:wrap;padding:1.5rem 0;border-top:1px solid rgba(0,0,0,0.06);margin-top:1.5rem}
+    .phase-stat{text-align:center}
+    .phase-stat-num{display:block;font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:#059669}
+    .phase-stat-label{font-size:0.75rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px}
+    .kept-section{padding:4rem 0;background:#fff}
+    .kept-intro{max-width:680px;margin:0 auto 2.5rem;text-align:center}
+    .kept-intro h2{font-family:var(--font-display);font-size:2rem;margin-bottom:0.75rem}
+    .kept-intro p{color:var(--gray)}
+    .kept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+    .kept-card{background:var(--cream);border-radius:var(--radius);padding:1.25rem;display:flex;align-items:center;gap:1rem;border-left:4px solid #10b981}
+    .kept-icon{font-size:1.8rem}
+    .kept-info h4{font-family:var(--font-display);font-size:0.95rem;margin-bottom:2px}
+    .kept-info p{font-size:0.8rem;color:var(--gray)}
+    .kept-tag{font-size:0.65rem;font-weight:700;color:#059669;background:rgba(16,185,129,0.1);padding:2px 8px;border-radius:50px;display:inline-block;margin-top:4px}
+    .modules-section{padding:4rem 0;background:var(--cream)}
+    .modules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+    .module-card{background:#fff;border-radius:var(--radius);overflow:hidden;transition:all 0.3s;border:1px solid rgba(16,185,129,0.15)}
+    .module-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
+    .module-visual{height:200px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ecfdf5,#f0fdf4);position:relative}
+    .module-visual svg{width:80%;max-width:220px;height:auto}
+    .module-qty{position:absolute;top:12px;right:12px;background:#059669;color:#fff;font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:50px}
+    .module-new-tag{position:absolute;top:12px;left:12px;background:#10b981;color:#fff;font-size:0.65rem;font-weight:700;padding:3px 8px;border-radius:50px;letter-spacing:0.5px}
+    .module-info{padding:1.5rem}
+    .module-info h3{font-family:var(--font-display);font-size:1.15rem;margin-bottom:0.25rem}
+    .module-dims{font-size:0.8rem;color:var(--gray);margin-bottom:0.5rem}
+    .module-desc{font-size:0.9rem;color:#555;margin-bottom:1rem;line-height:1.5}
+    .module-uses{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem}
+    .module-use{font-size:0.7rem;padding:3px 10px;border-radius:50px;background:rgba(16,185,129,0.08);color:#059669;font-weight:600}
+    .module-price{display:flex;align-items:baseline;gap:6px}
+    .module-price .each{font-size:1.2rem;font-weight:700;color:#059669;font-family:var(--font-display)}
+    .module-price .per{font-size:0.8rem;color:var(--gray)}
+    .layout-section{padding:4rem 0;background:#fff}
+    .layout-visual{max-width:700px;margin:0 auto 2.5rem;background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border-radius:var(--radius);padding:2rem;border:1px solid rgba(16,185,129,0.12)}
+    .layout-visual svg{width:100%;height:auto}
+    .pricing{padding:4rem 0;background:var(--cream)}
+    .price-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:700px;margin:0 auto}
+    .price-card{background:#fff;border-radius:var(--radius);padding:2rem;border:1px solid rgba(0,0,0,0.06)}
+    .price-card.highlight{border:2px solid #10b981}
+    .price-card h3{font-family:var(--font-display);font-size:1.2rem;margin-bottom:0.25rem}
+    .price-card .subtitle{color:var(--gray);font-size:0.85rem;margin-bottom:1.5rem}
+    .price-line{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.9rem}
+    .price-line:last-of-type{border-bottom:none}
+    .price-item-qty{font-size:0.75rem;color:var(--gray);margin-left:3px}
+    .price-item-cost{font-weight:600}
+    .price-kept{color:#10b981;font-weight:600;font-size:0.8rem}
+    .price-total{display:flex;justify-content:space-between;align-items:center;padding:1rem 0 0;margin-top:0.5rem;border-top:2px solid #10b981}
+    .price-total-label{font-family:var(--font-display);font-size:1.1rem;font-weight:700}
+    .price-total-num{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:#059669}
+    .price-savings{text-align:center;margin-top:1.5rem;padding:0.75rem;background:rgba(16,185,129,0.08);border-radius:8px;font-size:0.85rem;color:#059669;font-weight:600;max-width:700px;margin-left:auto;margin-right:auto}
+    .next-phase{padding:4rem 0;background:var(--dark);color:var(--white);text-align:center}
+    .next-phase h2{font-family:var(--font-display);font-size:2rem;margin-bottom:0.5rem}
+    .next-phase p{color:var(--gray-light);margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto}
+    .next-phase .btn-primary{padding:1rem 2.5rem;font-size:1rem;background:#10b981}
+    .next-phase .btn-primary:hover{background:#059669}
+    .phase-dots{display:flex;gap:8px;justify-content:center;margin-bottom:2rem}
+    .phase-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.2)}
+    .phase-dot.active{background:#10b981}.phase-dot.done{background:var(--primary)}
+    @media(max-width:768px){.phase-hero{padding:6rem 0 3rem}.kept-grid{grid-template-columns:1fr}.modules-grid{grid-template-columns:1fr}.price-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <style>.aiunites-bar{position:fixed;top:0;left:0;right:0;z-index:10000;background:linear-gradient(90deg,#0a0a0f,#1a1a2e);border-bottom:1px solid rgba(99,102,241,.3);padding:8px 0;font-size:12px}.aiunites-bar-content{max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px;overflow-x:auto;scrollbar-width:none}.aiunites-bar-content::-webkit-scrollbar{display:none}.aiunites-bar a{color:rgba(255,255,255,.7);text-decoration:none;white-space:nowrap;transition:color .2s}.aiunites-bar a:hover{color:#fff}.aiunites-bar-brand{color:#6366f1!important;font-weight:600}.aiunites-bar-brand:hover{color:#818cf8!important}.aiunites-bar-divider{color:rgba(255,255,255,.2)}body{padding-top:36px!important}.nav{top:36px!important}</style>
+  <div class="aiunites-bar"><div class="aiunites-bar-content"><a href="https://aiunites.github.io/aiunites-site/" class="aiunites-bar-brand">&#9670; AIUNITES</a><span class="aiunites-bar-divider">|</span><a href="https://aiunites.github.io/aizines-app/">AIZines</a><a href="https://aiunites.github.io/aibyjob-demo/">AIByJob</a><a href="https://aiunites.github.io/redomy-demo/">Redomy</a><a href="https://aiunites.github.io/videobate-site/">VideoBate</a><a href="https://aiunites.github.io/voicestry-site/">VoiceStry</a><a href="https://aiunites.github.io/furnishthings-site/" style="color:#d97706 !important;font-weight:600;">FurnishThings</a><a href="https://aiunites.github.io/bizstry-site/">BizStry</a><a href="https://aiunites.github.io/aiyhwh-site/">AI YHWH</a><a href="https://aiunites.github.io/cloudsion-site/">Cloudsion</a><a href="https://aiunites.github.io/gameatica-site/">Gameatica</a><a href="https://aiunites.github.io/uptownit-site/">UptownIT</a><a href="https://aiunites.github.io/inthisworld-site/">InThisWorld</a><a href="https://aiunites.github.io/erpise-site/">ERPise</a><a href="https://aiunites.github.io/erpize-site/">ERPize</a><a href="https://aiunites.github.io/cosmostheopera-site/">COSMOS</a></div></div>
+
+  <nav class="nav">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">&#x1F6CB;&#xFE0F; Furnish<span>Things</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="dorm.html">Dorm</a>
+        <a href="apartment.html" style="color:#059669;font-weight:600;">Apartment</a>
+        <a href="home.html">First Home</a>
+        <a href="index.html#contact" class="btn btn-primary">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="phase-hero">
+    <div class="container">
+      <div class="phase-badge">&#x1F3E2; Phase 2 of 3 &#8212; GrowWith Modular System</div>
+      <h1>Your <span class="highlight">First Apartment</span> Expansion</h1>
+      <p class="lead">You kept everything from your dorm. Now add seating, dining, and entertainment modules. Your 3 cubes become 7. Your desk becomes a home office. Zero waste.</p>
+      <div class="phase-nav">
+        <a href="dorm.html" class="done">&#10003; Phase 1: Dorm</a>
+        <a href="apartment.html" class="current">Phase 2: Apartment</a>
+        <a href="home.html">Phase 3: Home</a>
+      </div>
+      <div class="phase-stats">
+        <div class="phase-stat"><span class="phase-stat-num">+8</span><span class="phase-stat-label">New Modules</span></div>
+        <div class="phase-stat"><span class="phase-stat-num">$862</span><span class="phase-stat-label">Phase 2 Cost</span></div>
+        <div class="phase-stat"><span class="phase-stat-num">15</span><span class="phase-stat-label">Total Modules</span></div>
+        <div class="phase-stat"><span class="phase-stat-num">$493</span><span class="phase-stat-label">Saved from Phase 1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="kept-section">
+    <div class="container">
+      <div class="kept-intro">
+        <span class="badge" style="background:rgba(16,185,129,0.1);color:#059669;">&#10003; Already Yours</span>
+        <h2>What Moves With You</h2>
+        <p>Everything from Phase 1 gets reconfigured &#8212; not replaced. Here's how your dorm modules transform for apartment living.</p>
+      </div>
+      <div class="kept-grid">
+        <div class="kept-card"><div class="kept-icon">&#x1F4E6;</div><div class="kept-info"><h4>3 Base Cubes</h4><p>Nightstand &#8594; TV stand base. Desk supports stay as desk.</p><span class="kept-tag">FROM PHASE 1</span></div></div>
+        <div class="kept-card"><div class="kept-icon">&#x1F5A5;&#xFE0F;</div><div class="kept-info"><h4>Desk Top</h4><p>Same desk, now in a dedicated office corner.</p><span class="kept-tag">FROM PHASE 1</span></div></div>
+        <div class="kept-card"><div class="kept-icon">&#x1F4DA;</div><div class="kept-info"><h4>Shelf Rail</h4><p>Moves above new TV area or stays at desk.</p><span class="kept-tag">FROM PHASE 1</span></div></div>
+        <div class="kept-card"><div class="kept-icon">&#x1F5C4;&#xFE0F;</div><div class="kept-info"><h4>2 Drawer Inserts</h4><p>Still in cubes &#8212; now bedroom storage or entryway.</p><span class="kept-tag">FROM PHASE 1</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="modules-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge" style="background:rgba(16,185,129,0.1);color:#059669;">Phase 2 Additions</span>
+        <h2>New Modules for Apartment Living</h2>
+        <p>Add seating, dining, storage, and entertainment without replacing a thing.</p>
+      </div>
+      <div class="modules-grid">
+        <div class="module-card">
+          <div class="module-visual">
+            <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="50" width="50" height="50" rx="4" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+              <rect x="80" y="50" width="50" height="50" rx="4" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+              <rect x="20" y="110" width="50" height="50" rx="4" fill="#d97706" opacity="0.1" stroke="#d97706" stroke-width="1" stroke-dasharray="3"/>
+              <rect x="80" y="110" width="50" height="50" rx="4" fill="#d97706" opacity="0.1" stroke="#d97706" stroke-width="1" stroke-dasharray="3"/>
+              <text x="45" y="135" font-family="Inter" font-size="7" fill="#b45309" text-anchor="middle">P1</text>
+              <text x="105" y="135" font-family="Inter" font-size="7" fill="#b45309" text-anchor="middle">P1</text>
+              <rect x="140" y="50" width="50" height="50" rx="4" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+              <rect x="140" y="110" width="50" height="50" rx="4" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+            </svg>
+            <span class="module-qty">&times;4</span><span class="module-new-tag">NEW</span>
+          </div>
+          <div class="module-info">
+            <h3>Base Cube</h3>
+            <div class="module-dims">18&quot; &times; 18&quot; &times; 18&quot; &#8212; Same module as Phase 1</div>
+            <div class="module-desc">Four more cubes. Combined with your existing 3, you now have 7 total &#8212; enough for a TV console (3 wide), entryway bench (2 wide), plus desk supports.</div>
+            <div class="module-uses"><span class="module-use">TV Console</span><span class="module-use">Entry Bench</span><span class="module-use">Room Divider</span></div>
+            <div class="module-price"><span class="each">$69</span><span class="per">/ each</span></div>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-visual">
+            <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+              <rect x="25" y="60" width="70" height="55" rx="6" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+              <rect x="25" y="40" width="70" height="22" rx="4" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="1"/>
+              <rect x="105" y="60" width="70" height="55" rx="6" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+              <rect x="105" y="40" width="70" height="22" rx="4" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="1"/>
+              <circle cx="97" cy="85" r="3" fill="#10b981" opacity="0.5"/>
+              <circle cx="103" cy="85" r="3" fill="#10b981" opacity="0.5"/>
+              <text x="100" y="135" font-family="Inter" font-size="9" fill="#059669" text-anchor="middle">click-connects</text>
+            </svg>
+            <span class="module-qty">&times;2</span><span class="module-new-tag">NEW</span>
+          </div>
+          <div class="module-info">
+            <h3>Sofa Module</h3>
+            <div class="module-dims">30&quot; &times; 30&quot; &times; 28&quot;H &#8212; Steel frame, replaceable cushions</div>
+            <div class="module-desc">Two modules click together for a loveseat. In Phase 3, add more to build a full sectional. Steel frame rated for 250 lbs per module. Cushion covers machine-washable.</div>
+            <div class="module-uses"><span class="module-use">Loveseat</span><span class="module-use">2 Chairs</span><span class="module-use">Reading Nook</span></div>
+            <div class="module-price"><span class="each">$179</span><span class="per">/ each</span></div>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-visual">
+            <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+              <rect x="30" y="55" width="140" height="10" rx="3" fill="#10b981" opacity="0.25" stroke="#10b981" stroke-width="1.5"/>
+              <rect x="35" y="72" width="40" height="40" rx="4" fill="#d97706" opacity="0.1" stroke="#d97706" stroke-width="1" stroke-dasharray="3"/>
+              <rect x="125" y="72" width="40" height="40" rx="4" fill="#d97706" opacity="0.1" stroke="#d97706" stroke-width="1" stroke-dasharray="3"/>
+              <text x="55" y="96" font-family="Inter" font-size="7" fill="#b45309" text-anchor="middle">cube</text>
+              <text x="145" y="96" font-family="Inter" font-size="7" fill="#b45309" text-anchor="middle">cube</text>
+              <circle cx="60" cy="45" r="8" fill="none" stroke="#9ca3af" stroke-width="0.8" opacity="0.4"/>
+              <circle cx="100" cy="45" r="8" fill="none" stroke="#9ca3af" stroke-width="0.8" opacity="0.4"/>
+              <circle cx="140" cy="45" r="8" fill="none" stroke="#9ca3af" stroke-width="0.8" opacity="0.4"/>
+            </svg>
+            <span class="module-qty">&times;1</span><span class="module-new-tag">NEW</span>
+          </div>
+          <div class="module-info">
+            <h3>Dining Table Top</h3>
+            <div class="module-dims">48&quot; &times; 24&quot; &#8212; Bamboo, seats 4</div>
+            <div class="module-desc">Same bracket system as the Desk Top. Sits on any two Base Cubes for instant dining table. Cubes underneath store placemats, napkins, candles. Seats 4 comfortably.</div>
+            <div class="module-uses"><span class="module-use">Dining for 4</span><span class="module-use">Craft Table</span><span class="module-use">Buffet</span></div>
+            <div class="module-price"><span class="each">$139</span><span class="per">/ each</span></div>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-visual">
+            <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+              <rect x="55" y="15" width="8" height="130" rx="2" fill="#10b981" opacity="0.3" stroke="#10b981" stroke-width="1"/>
+              <rect x="77" y="15" width="8" height="130" rx="2" fill="#10b981" opacity="0.3" stroke="#10b981" stroke-width="1"/>
+              <rect x="45" y="30" width="50" height="8" rx="2" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="1"/>
+              <rect x="45" y="60" width="50" height="8" rx="2" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="1"/>
+              <rect x="45" y="90" width="50" height="8" rx="2" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="1"/>
+              <rect x="115" y="15" width="8" height="130" rx="2" fill="#d97706" opacity="0.2" stroke="#d97706" stroke-width="1" stroke-dasharray="3"/>
+              <rect x="137" y="15" width="8" height="130" rx="2" fill="#d97706" opacity="0.2" stroke="#d97706" stroke-width="1" stroke-dasharray="3"/>
+              <text x="130" y="118" font-family="Inter" font-size="7" fill="#b45309" text-anchor="middle">P1 rail</text>
+            </svg>
+            <span class="module-qty">&times;1</span><span class="module-new-tag">NEW</span>
+          </div>
+          <div class="module-info">
+            <h3>Shelf Rail (2nd)</h3>
+            <div class="module-dims">36&quot; tall &times; 20&quot; wide &#8212; Matches Phase 1 rail</div>
+            <div class="module-desc">A second rail for the living room or kitchen. Mount side by side with your Phase 1 rail for a wider bookcase, or place separately. Same adjustable shelves.</div>
+            <div class="module-uses"><span class="module-use">Kitchen Shelving</span><span class="module-use">Living Room</span><span class="module-use">Bookcase</span></div>
+            <div class="module-price"><span class="each">$89</span><span class="per">/ each</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="layout-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge" style="background:rgba(16,185,129,0.1);color:#059669;">Apartment Layout</span>
+        <h2>How It All Fits &#8212; 1BR Apartment</h2>
+        <p>Your modules spread across a full apartment. Phase 1 pieces in amber, Phase 2 additions in green.</p>
+      </div>
+      <div class="layout-visual">
+        <svg viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="30" width="540" height="390" rx="2" fill="none" stroke="#d4d4d4" stroke-width="2"/>
+          <line x1="300" y1="30" x2="300" y2="250" stroke="#d4d4d4" stroke-width="1.5"/>
+          <text x="160" y="22" font-family="Inter" font-size="11" fill="#9ca3af" text-anchor="middle">LIVING / DINING</text>
+          <text x="430" y="22" font-family="Inter" font-size="11" fill="#9ca3af" text-anchor="middle">BEDROOM / OFFICE</text>
+          <rect x="50" y="50" width="40" height="40" rx="3" fill="#d97706" opacity="0.2" stroke="#d97706" stroke-width="1.5"/>
+          <rect x="95" y="50" width="40" height="40" rx="3" fill="#d97706" opacity="0.2" stroke="#d97706" stroke-width="1.5"/>
+          <rect x="140" y="50" width="40" height="40" rx="3" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="1.5"/>
+          <text x="115" y="108" font-family="Inter" font-size="9" fill="#6b7280" text-anchor="middle">TV console (3 cubes)</text>
+          <rect x="60" y="160" width="55" height="55" rx="5" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="1.5"/>
+          <rect x="120" y="160" width="55" height="55" rx="5" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="1.5"/>
+          <text x="117" y="235" font-family="Inter" font-size="9" fill="#059669" text-anchor="middle">loveseat (2 sofa modules)</text>
+          <rect x="60" y="300" width="40" height="40" rx="3" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+          <rect x="160" y="300" width="40" height="40" rx="3" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+          <rect x="55" y="290" width="150" height="10" rx="3" fill="#10b981" opacity="0.25" stroke="#10b981" stroke-width="1"/>
+          <text x="130" y="360" font-family="Inter" font-size="9" fill="#059669" text-anchor="middle">dining table (top + 2 cubes)</text>
+          <rect x="330" y="50" width="40" height="40" rx="3" fill="#d97706" opacity="0.2" stroke="#d97706" stroke-width="1.5"/>
+          <rect x="375" y="50" width="40" height="40" rx="3" fill="#d97706" opacity="0.2" stroke="#d97706" stroke-width="1.5"/>
+          <rect x="325" y="42" width="95" height="8" rx="2" fill="#d97706" opacity="0.3" stroke="#d97706" stroke-width="1"/>
+          <text x="372" y="108" font-family="Inter" font-size="9" fill="#b45309" text-anchor="middle">desk (from P1)</text>
+          <rect x="330" y="170" width="130" height="90" rx="6" fill="#e5e7eb" stroke="#d1d5db" stroke-width="1.5"/>
+          <text x="395" y="220" font-family="Inter" font-size="10" fill="#9ca3af" text-anchor="middle">Full Bed</text>
+          <rect x="470" y="190" width="35" height="35" rx="3" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="1.5"/>
+          <text x="487" y="240" font-family="Inter" font-size="8" fill="#059669" text-anchor="middle">cube</text>
+          <rect x="500" y="418" width="50" height="4" fill="#9ca3af" rx="1"/>
+          <text x="525" y="415" font-family="Inter" font-size="8" fill="#9ca3af" text-anchor="middle">door</text>
+          <rect x="330" y="310" width="10" height="10" rx="2" fill="#d97706" opacity="0.25" stroke="#d97706" stroke-width="1"/>
+          <text x="348" y="319" font-family="Inter" font-size="9" fill="#6b7280">Phase 1 (kept)</text>
+          <rect x="330" y="328" width="10" height="10" rx="2" fill="#10b981" opacity="0.25" stroke="#10b981" stroke-width="1"/>
+          <text x="348" y="337" font-family="Inter" font-size="9" fill="#6b7280">Phase 2 (new)</text>
+          <rect x="330" y="346" width="10" height="10" rx="2" fill="#e5e7eb" stroke="#d1d5db" stroke-width="1"/>
+          <text x="348" y="355" font-family="Inter" font-size="9" fill="#6b7280">Non-modular</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge" style="background:rgba(16,185,129,0.1);color:#059669;">Investment</span>
+        <h2>Phase 2 Price Breakdown</h2>
+        <p>Only pay for what's new. Everything from Phase 1 carries forward at no extra cost.</p>
+      </div>
+      <div class="price-cards">
+        <div class="price-card">
+          <h3>&#10003; Already Owned</h3>
+          <p class="subtitle">From Phase 1 &#8212; $0 additional</p>
+          <div class="price-line"><span>Base Cube <span class="price-item-qty">&times;3</span></span><span class="price-kept">$0 &#8212; kept</span></div>
+          <div class="price-line"><span>Desk Top <span class="price-item-qty">&times;1</span></span><span class="price-kept">$0 &#8212; kept</span></div>
+          <div class="price-line"><span>Shelf Rail <span class="price-item-qty">&times;1</span></span><span class="price-kept">$0 &#8212; kept</span></div>
+          <div class="price-line"><span>Drawer Inserts <span class="price-item-qty">&times;2</span></span><span class="price-kept">$0 &#8212; kept</span></div>
+          <div class="price-total"><span class="price-total-label">Carried Forward</span><span class="price-total-num" style="color:#10b981;">$0</span></div>
+        </div>
+        <div class="price-card highlight">
+          <h3>Phase 2 Additions</h3>
+          <p class="subtitle">New modules for apartment living</p>
+          <div class="price-line"><span>Base Cube <span class="price-item-qty">&times;4</span></span><span class="price-item-cost">$276</span></div>
+          <div class="price-line"><span>Sofa Module <span class="price-item-qty">&times;2</span></span><span class="price-item-cost">$358</span></div>
+          <div class="price-line"><span>Dining Table Top <span class="price-item-qty">&times;1</span></span><span class="price-item-cost">$139</span></div>
+          <div class="price-line"><span>Shelf Rail <span class="price-item-qty">&times;1</span></span><span class="price-item-cost">$89</span></div>
+          <div class="price-total"><span class="price-total-label">Phase 2 Cost</span><span class="price-total-num">$862</span></div>
+        </div>
+      </div>
+      <div class="price-savings">Cumulative investment: $1,355 across 15 modules &#8212; vs. $2,400+ buying traditional furniture twice</div>
+    </div>
+  </section>
+
+  <section class="next-phase">
+    <div class="container">
+      <div class="phase-dots"><div class="phase-dot done"></div><div class="phase-dot done"></div><div class="phase-dot active"></div></div>
+      <h2>Moving Into Your First Home?</h2>
+      <p>Your 15 modules expand into full rooms &#8212; sectional sofa, home office, media center, and more.</p>
+      <a href="home.html" class="btn btn-primary">Phase 3: First Home &#8594;</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><span class="logo">&#x1F6CB;&#xFE0F; Furnish<span>Things</span></span><p>Modular furniture that grows with you.</p></div>
+        <div class="footer-links"><h4>GrowWith</h4><a href="dorm.html">Phase 1: Dorm</a><a href="apartment.html">Phase 2: Apartment</a><a href="home.html">Phase 3: Home</a></div>
+        <div class="footer-links"><h4>Shop</h4><a href="index.html">All Products</a><a href="#">Modules</a><a href="#">Accessories</a></div>
+        <div class="footer-links"><h4>Help</h4><a href="#">Assembly Guide</a><a href="#">Shipping</a><a href="#">Returns</a></div>
+      </div>
+      <div class="footer-bottom">
+        <p class="disclaimer">&#9888;&#65039; This is a demo/concept site. Products shown are for illustration only.</p>
+        <p>&copy; 2026 FurnishThings. A product of <a href="https://aiunites.github.io/aiunites-site">AIUNITES</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

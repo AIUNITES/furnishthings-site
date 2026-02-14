@@ -7,8 +7,8 @@
 | **Repository** | furnishthings-site |
 | **Live URL** | https://aiunites.github.io/furnishthings-site/ |
 | **Local Path** | C:/Users/Tom/Documents/GitHub/furnishthings-site |
-| **Last Updated** | January 24, 2026 |
-| **Version** | 1.0.0 |
+| **Last Updated** | February 14, 2026 |
+| **Version** | 1.1.0 |
 | **Type** | Landing Page |
 | **Tagline** | Furniture & Home Decor |
 
@@ -19,6 +19,9 @@
 | Page | File | Description | Status |
 |------|------|-------------|--------|
 | Landing | index.html | Main landing page | ✅ Active |
+| Phase 1: Dorm | dorm.html | GrowWith modular — college dorm starter kit | ✅ Active |
+| Phase 2: Apartment | apartment.html | GrowWith modular — first apartment expansion | ✅ Active |
+| Phase 3: Home | home.html | GrowWith modular — first home complete system | ✅ Active |
 
 ---
 
@@ -35,6 +38,22 @@
 | Dark Theme | ✅ | |
 | Responsive Design | ✅ | |
 | AIUNITES Webring | ✅ | |
+| Nav links to GrowWith pages | ✅ | Dorm, Apartment, First Home |
+
+### 🛋️ GrowWith Modular System (3 phases)
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Phase 1: Dorm page | ✅ | 7 modules, $493, SVG diagrams |
+| Phase 2: Apartment page | ✅ | +8 modules, $862, kept inventory |
+| Phase 3: Home page | ✅ | +9 modules, $891, lifetime summary |
+| Phase navigation pills | ✅ | done/current/upcoming states |
+| Module cards with SVG visuals | ✅ | Each module has diagram |
+| Room layout SVGs | ✅ | Dorm, 1BR apt, living room |
+| Pricing breakdowns | ✅ | Per-phase and cumulative |
+| Kept inventory sections | ✅ | Shows P1/P2 modules carried forward |
+| Color-coded phases | ✅ | Amber (P1), Green (P2), Indigo (P3) |
+| Responsive design | ✅ | Mobile-friendly grid layouts |
+| AIUNITES webring | ✅ | On all 3 phase pages |
 
 ### 👤 User System (DemoTemplate Features)
 | Feature | Status | Notes |
