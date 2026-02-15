@@ -44,4 +44,12 @@ Created the "GrowWith" modular furniture concept — a system where every piece 
 | Home | $891 | $2,246 | 24 |
 
 ---
+
+## February 15, 2026
+
+### Disclaimer & TOS — Added to Sub-Pages
+- Added Privacy Policy + Terms of Service links to footer-bottom on dorm.html, apartment.html, home.html
+- All FurnishThings pages now have disclaimer + legal links
+
+---
 *Log maintained by: Tom / Claude AI*
