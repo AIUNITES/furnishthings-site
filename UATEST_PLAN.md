@@ -84,7 +84,8 @@
 |---------|------|---------|
 | 1.0.0 | Jan 24, 2026 | Initial landing page |
 | 1.1.0 | Feb 15, 2026 | Legal compliance: removed dup footer, updated all legal links to centralized legal.html |
+| 1.1.1 | Feb 22, 2026 | Webring highlight fix: standardized to .aiunites-bar-active class with white (#fff) + underline styling |
 
 ---
 
-*Last tested: February 15, 2026*
+*Last tested: February 22, 2026*
