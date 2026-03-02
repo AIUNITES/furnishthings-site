@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FurnishThings — Modular Furniture That Grows With You</title>
+  <meta name="description" content="Plan your life in phases. Modular, foldable furniture designed to ship flat and grow with you from dorm to first home. Not just a store — a system.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛋️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --amber: #c2790e;
+      --amber-dark: #9a5f09;
+      --amber-light: #f5deb3;
+      --amber-glow: rgba(194,121,14,0.12);
+      --birch: #f7f0e4;
+      --birch-dark: #ede3d1;
+      --charcoal: #1c1c1c;
+      --charcoal-mid: #2e2e2e;
+      --ink: #111;
+      --warm-gray: #7a7268;
+      --warm-gray-light: #a9a096;
+      --emerald: #2d8a5e;
+      --emerald-soft: rgba(45,138,94,0.08);
+      --indigo: #4f46e5;
+      --indigo-soft: rgba(79,70,229,0.08);
+      --red-sale: #c0392b;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --radius: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+      --shadow-lg: 0 16px 50px rgba(0,0,0,0.12);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--birch); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* AIUNITES Webring */
+    .aiunites-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 10000; background: linear-gradient(90deg, #0a0a0f, #1a1a2e); border-bottom: 1px solid rgba(99,102,241,.3); padding: 7px 0; font-size: 11px; }
+    .aiunites-bar-content { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 12px; overflow-x: auto; scrollbar-width: none; }
+    .aiunites-bar-content::-webkit-scrollbar { display: none; }
+    .aiunites-bar a { color: rgba(255,255,255,.6); text-decoration: none; white-space: nowrap; transition: color .2s; }
+    .aiunites-bar a:hover { color: #fff; }
+    .aiunites-bar-brand { color: #6366f1 !important; font-weight: 600; }
+    .aiunites-bar-active { color: #fff !important; text-decoration: underline; text-underline-offset: 3px; }
+    .aiunites-bar-divider { color: rgba(255,255,255,.15); }
+
+    /* Nav */
+    .nav { position: fixed; top: 33px; left: 0; right: 0; z-index: 1000; background: rgba(247,240,228,0.92); backdrop-filter: blur(16px) saturate(1.4); border-bottom: 1px solid rgba(0,0,0,0.06); transition: box-shadow 0.3s; }
+    .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 0; }
+    .logo { font-family: var(--font-display); font-size: 1.45rem; letter-spacing: -0.02em; }
+    .logo em { font-style: italic; color: var(--amber); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a, .nav-links .nav-dropdown-trigger { font-size: 0.88rem; font-weight: 500; color: var(--warm-gray); padding: 0.5rem 0.85rem; border-radius: 8px; transition: all 0.25s; cursor: pointer; position: relative; background: none; border: none; font-family: var(--font-body); }
+    .nav-links a:hover, .nav-links .nav-dropdown-trigger:hover { color: var(--ink); background: rgba(0,0,0,0.04); }
+    .nav-links a.active { color: var(--amber); font-weight: 600; }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-trigger::after { content: '▾'; font-size: 0.7em; margin-left: 4px; opacity: 0.5; }
+    .nav-featured-badge { position: absolute; top: -2px; right: 2px; background: var(--amber); color: #fff; font-size: 0.55rem; font-weight: 700; padding: 1px 5px; border-radius: 50px; letter-spacing: 0.5px; line-height: 1.4; pointer-events: none; }
+    .nav-dropdown-menu { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(8px); background: #fff; border-radius: var(--radius-lg); padding: 0.5rem; min-width: 260px; box-shadow: var(--shadow-lg); border: 1px solid rgba(0,0,0,0.06); opacity: 0; pointer-events: none; transition: all 0.25s; }
+    .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown-menu:hover { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .nav-dropdown-menu a { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0.85rem; border-radius: 8px; transition: background 0.2s; }
+    .nav-dropdown-menu a:hover { background: var(--birch); }
+    .ddm-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .ddm-icon.phase1 { background: var(--amber-glow); }
+    .ddm-icon.phase2 { background: var(--emerald-soft); }
+    .ddm-icon.phase3 { background: var(--indigo-soft); }
+    .ddm-text { line-height: 1.3; }
+    .ddm-text strong { display: block; font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+    .ddm-text span { font-size: 0.75rem; color: var(--warm-gray); }
+    .nav-cart { position: relative; padding: 0.5rem; font-size: 1.2rem; cursor: pointer; }
+    .nav-cart-count { position: absolute; top: 0; right: -4px; background: var(--amber); color: #fff; font-size: 0.6rem; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: all 0.3s; }
+
+    /* Hero */
+    .hero { padding: 9rem 0 5rem; position: relative; overflow: hidden; background: linear-gradient(165deg, var(--birch) 0%, #fdf6ec 40%, var(--birch-dark) 100%); }
+    .hero::before { content: ''; position: absolute; top: -30%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(194,121,14,0.06) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--amber); margin-bottom: 1rem; }
+    .hero-tag::before { content: ''; width: 28px; height: 2px; background: var(--amber); border-radius: 1px; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 3.4rem); line-height: 1.15; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: italic; color: var(--amber); }
+    .hero-lead { font-size: 1.05rem; color: var(--warm-gray); max-width: 480px; margin-bottom: 2rem; line-height: 1.7; }
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0.8rem 1.6rem; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; transition: all 0.3s; font-family: var(--font-body); }
+    .btn-amber { background: var(--amber); color: #fff; }
+    .btn-amber:hover { background: var(--amber-dark); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(194,121,14,0.3); }
+    .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid rgba(0,0,0,0.15); }
+    .btn-outline:hover { border-color: var(--ink); background: rgba(0,0,0,0.03); }
+    .btn-lg { padding: 1rem 2rem; font-size: 0.95rem; }
+    .hero-proof { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .hero-proof-item { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--warm-gray); }
+    .hero-proof-item strong { color: var(--ink); font-weight: 700; font-size: 1rem; }
+    .hero-visual { position: relative; background: #fff; border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-lg); border: 1px solid rgba(0,0,0,0.04); }
+    .hero-visual-label { position: absolute; top: -12px; left: 24px; background: var(--amber); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 4px 12px; border-radius: 50px; letter-spacing: 0.5px; }
+    .phase-mini-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+    .phase-mini { background: var(--birch); border-radius: var(--radius); padding: 1.1rem 0.75rem; text-align: center; transition: all 0.3s; cursor: pointer; border: 2px solid transparent; }
+    .phase-mini:hover { border-color: var(--amber); transform: translateY(-2px); }
+    .phase-mini-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+    .phase-mini-title { font-weight: 700; font-size: 0.78rem; margin-bottom: 2px; }
+    .phase-mini-sub { font-size: 0.68rem; color: var(--warm-gray); }
+    .phase-mini-price { font-family: var(--font-display); font-size: 1rem; color: var(--amber); margin-top: 0.4rem; }
+    .hero-visual-note { margin-top: 1rem; text-align: center; font-size: 0.78rem; color: var(--warm-gray); padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.06); }
+    .hero-visual-note strong { color: var(--emerald); }
+
+    /* Why Section */
+    .why-section { padding: 5rem 0; background: #fff; }
+    .why-header { text-align: center; max-width: 600px; margin: 0 auto 3rem; }
+    .section-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--amber); margin-bottom: 0.75rem; }
+    .section-tag::before { content: ''; width: 20px; height: 2px; background: var(--amber); border-radius: 1px; }
+    .why-header h2 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; }
+    .why-header p { color: var(--warm-gray); font-size: 0.95rem; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .why-card { padding: 2rem 1.5rem; border-radius: var(--radius-lg); background: var(--birch); border: 1px solid transparent; transition: all 0.3s; }
+    .why-card:hover { border-color: var(--amber); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .why-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .why-card h3 { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 0.5rem; }
+    .why-card p { font-size: 0.88rem; color: var(--warm-gray); line-height: 1.6; }
+    .why-amazon { grid-column: 1 / -1; background: var(--charcoal); color: #fff; border-radius: var(--radius-lg); padding: 2.5rem; text-align: center; margin-top: 0.5rem; }
+    .why-amazon h3 { font-family: var(--font-display); font-size: 1.3rem; color: var(--amber-light); margin-bottom: 0.5rem; }
+    .why-amazon p { color: rgba(255,255,255,0.65); font-size: 0.9rem; max-width: 500px; margin: 0 auto; }
+
+    /* Shop */
+    .shop-section { padding: 5rem 0; background: var(--birch); }
+    .shop-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .shop-header-text h2 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.25rem; }
+    .shop-header-text p { color: var(--warm-gray); font-size: 0.9rem; }
+    .shop-filters { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .filter-btn { padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 500; border: 1.5px solid rgba(0,0,0,0.1); background: #fff; cursor: pointer; transition: all 0.25s; font-family: var(--font-body); color: var(--warm-gray); }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--amber); color: var(--amber); background: var(--amber-glow); }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+    .product-card { background: #fff; border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s; border: 1px solid rgba(0,0,0,0.04); }
+    .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .product-card:hover .product-img { transform: scale(1.05); }
+    .product-img-wrap { position: relative; height: 200px; overflow: hidden; background: linear-gradient(145deg, var(--birch), var(--birch-dark)); display: flex; align-items: center; justify-content: center; }
+    .product-img { font-size: 4.5rem; transition: transform 0.4s ease; }
+    .product-tag { position: absolute; top: 10px; left: 10px; padding: 3px 10px; border-radius: 50px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+    .product-tag.sale { background: var(--red-sale); color: #fff; }
+    .product-tag.new { background: var(--emerald); color: #fff; }
+    .product-tag.bestseller { background: var(--amber); color: #fff; }
+    .product-tag.modular { background: var(--indigo); color: #fff; }
+    .product-body { padding: 1.25rem; }
+    .product-cat { font-size: 0.7rem; color: var(--warm-gray-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .product-name { font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 0.25rem; }
+    .product-desc { font-size: 0.82rem; color: var(--warm-gray); margin-bottom: 0.75rem; line-height: 1.5; }
+    .product-rating { display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--amber); margin-bottom: 0.5rem; }
+    .product-rating span { color: var(--warm-gray-light); }
+    .product-pricing { display: flex; align-items: baseline; gap: 8px; }
+    .product-price { font-family: var(--font-display); font-size: 1.2rem; color: var(--amber); }
+    .product-was { font-size: 0.85rem; color: var(--warm-gray-light); text-decoration: line-through; }
+    .product-ships { font-size: 0.72rem; color: var(--emerald); font-weight: 600; margin-top: 0.4rem; }
+
+    /* Plans Banner */
+    .plans-banner { padding: 4rem 0; position: relative; overflow: hidden; background: linear-gradient(135deg, var(--charcoal) 0%, #252015 100%); color: #fff; }
+    .plans-banner::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(194,121,14,0.03) 40px, rgba(194,121,14,0.03) 80px); pointer-events: none; }
+    .plans-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; position: relative; }
+    .plans-text h2 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.75rem; }
+    .plans-text h2 em { font-style: italic; color: var(--amber-light); }
+    .plans-text p { color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.7; }
+    .plans-phases { display: flex; gap: 0.75rem; }
+    .plans-phase-btn { flex: 1; padding: 1rem; border-radius: var(--radius); text-align: center; transition: all 0.3s; cursor: pointer; text-decoration: none; }
+    .plans-phase-btn.p1 { background: rgba(194,121,14,0.15); border: 1px solid rgba(194,121,14,0.3); }
+    .plans-phase-btn.p2 { background: rgba(45,138,94,0.12); border: 1px solid rgba(45,138,94,0.25); }
+    .plans-phase-btn.p3 { background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.25); }
+    .plans-phase-btn:hover { transform: translateY(-2px); }
+    .plans-phase-btn .ppb-icon { font-size: 1.6rem; margin-bottom: 0.3rem; }
+    .plans-phase-btn .ppb-label { font-weight: 700; font-size: 0.78rem; color: #fff; display: block; }
+    .plans-phase-btn .ppb-sub { font-size: 0.68rem; color: rgba(255,255,255,0.5); }
+    .plans-visual { background: rgba(255,255,255,0.04); border-radius: var(--radius-lg); padding: 2rem; border: 1px solid rgba(255,255,255,0.06); }
+    .plans-visual svg { width: 100%; height: auto; }
+
+    /* Modules */
+    .modules-section { padding: 5rem 0; background: #fff; }
+    .modules-header { text-align: center; max-width: 600px; margin: 0 auto 3rem; }
+    .modules-header h2 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; }
+    .modules-header p { color: var(--warm-gray); font-size: 0.95rem; }
+    .modules-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+    .mod-card { background: var(--birch); border-radius: var(--radius-lg); padding: 1.75rem; text-align: center; transition: all 0.3s; border: 2px solid transparent; }
+    .mod-card:hover { border-color: var(--amber); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .mod-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .mod-name { font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 0.3rem; }
+    .mod-dims { font-size: 0.75rem; color: var(--warm-gray-light); margin-bottom: 0.5rem; }
+    .mod-desc { font-size: 0.85rem; color: var(--warm-gray); line-height: 1.5; margin-bottom: 0.75rem; }
+    .mod-price { font-family: var(--font-display); font-size: 1.1rem; color: var(--amber); }
+
+    /* Newsletter */
+    .newsletter { padding: 5rem 0; background: linear-gradient(135deg, var(--birch-dark), var(--birch)); text-align: center; }
+    .newsletter h2 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; }
+    .newsletter p { color: var(--warm-gray); margin-bottom: 2rem; }
+    .newsletter-form { display: flex; gap: 0.75rem; max-width: 460px; margin: 0 auto; }
+    .newsletter-form input { flex: 1; padding: 0.9rem 1.2rem; border: 1.5px solid rgba(0,0,0,0.1); border-radius: var(--radius); font-size: 0.9rem; font-family: var(--font-body); background: #fff; transition: border-color 0.3s; }
+    .newsletter-form input:focus { outline: none; border-color: var(--amber); }
+
+    /* Footer */
+    .footer { padding: 4rem 0 2rem; background: var(--charcoal); color: #fff; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand .logo { margin-bottom: 0.5rem; }
+    .footer-brand p { color: var(--warm-gray-light); font-size: 0.85rem; }
+    .footer-links h4 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--warm-gray-light); margin-bottom: 1rem; }
+    .footer-links a { display: block; color: rgba(255,255,255,0.55); font-size: 0.88rem; padding: 0.3rem 0; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); }
+    .footer-disclaimer { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); padding: 0.65rem 1rem; border-radius: 8px; color: rgba(251,191,36,0.8); font-size: 0.78rem; margin-bottom: 1rem; display: inline-block; }
+    .footer-bottom p { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+    .footer-bottom a { color: var(--amber); }
+    .footer-legal { display: flex; gap: 16px; justify-content: center; margin-top: 0.5rem; }
+    .footer-legal a { color: rgba(255,255,255,0.35); font-size: 0.78rem; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { max-width: 420px; }
+      .plans-inner { grid-template-columns: 1fr; }
+      .plans-visual { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 768px) {
+      body { padding-top: 33px; }
+      .nav { top: 33px; }
+      .nav-links { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: var(--birch); flex-direction: column; align-items: flex-start; padding: 5rem 1.5rem 2rem; gap: 0.25rem; z-index: 9999; transform: translateX(100%); transition: transform 0.35s ease; box-shadow: -10px 0 40px rgba(0,0,0,0.1); }
+      .nav-links.open { transform: translateX(0); }
+      .nav-dropdown-menu { position: static; transform: none; opacity: 1; pointer-events: auto; box-shadow: none; border: 1px solid rgba(0,0,0,0.06); margin-top: 0.5rem; display: none; min-width: auto; }
+      .nav-dropdown.open-mobile .nav-dropdown-menu { display: block; }
+      .hamburger { display: flex; z-index: 10001; }
+      .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+      .hero { padding: 7rem 0 3rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero-proof { gap: 1.5rem; }
+      .phase-mini-cards { grid-template-columns: 1fr; }
+      .shop-header { flex-direction: column; align-items: flex-start; }
+      .plans-phases { flex-direction: column; }
+      .newsletter-form { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease both; }
+    .fade-up-d1 { animation-delay: 0.1s; }
+    .fade-up-d2 { animation-delay: 0.2s; }
+    .fade-up-d3 { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <!-- AIUNITES Webring -->
+  <div class="aiunites-bar">
+    <div class="aiunites-bar-content">
+      <a href="https://aiunites.github.io/aiunites-site/" class="aiunites-bar-brand">◆ AIUNITES</a>
+      <span class="aiunites-bar-divider">|</span>
+      <a href="https://aiunites.github.io/aizines-app/">AIZines</a>
+      <a href="https://aiunites.github.io/aibyjob-demo/">AIByJob</a>
+      <a href="https://aiunites.github.io/redomy-demo/">Redomy</a>
+      <a href="https://aiunites.github.io/videobate-site/">VideoBate</a>
+      <a href="https://aiunites.github.io/voicestry-site/">VoiceStry</a>
+      <a href="https://aiunites.github.io/furnishthings-site/" class="aiunites-bar-active">FurnishThings</a>
+      <a href="https://aiunites.github.io/bizstry-site/">BizStry</a>
+      <a href="https://aiunites.github.io/gameatica-site/">Gameatica</a>
+      <a href="https://aiunites.github.io/inthisworld-site/">InThisWorld</a>
+      <a href="https://aiunites.github.io/erpise-site/">ERPise</a>
+      <a href="https://aiunites.github.io/erpize-site/">ERPize</a>
+      <a href="https://aiunites.github.io/cosmostheopera-site/">🌌 COSMOS</a>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <div class="container nav-inner">
+      <a href="#" class="logo">🛋️ Furnish<em>Things</em></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#shop" class="active">Shop</a>
+        <div class="nav-dropdown" id="homePlansDropdown">
+          <button class="nav-dropdown-trigger" onclick="toggleMobileDropdown(event)">
+            Home Plans
+            <span class="nav-featured-badge">★ UNIQUE</span>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="dorm.html">
+              <div class="ddm-icon phase1">🎓</div>
+              <div class="ddm-text"><strong>Phase 1: College Dorm</strong><span>7 modules · $493 · Start here</span></div>
+            </a>
+            <a href="apartment.html">
+              <div class="ddm-icon phase2">🏢</div>
+              <div class="ddm-text"><strong>Phase 2: First Apartment</strong><span>+8 modules · $862 · Expand</span></div>
+            </a>
+            <a href="home.html">
+              <div class="ddm-icon phase3">🏠</div>
+              <div class="ddm-text"><strong>Phase 3: First Home</strong><span>+9 modules · $891 · Complete</span></div>
+            </a>
+          </div>
+        </div>
+        <a href="#modules">GrowWith</a>
+        <a href="#about">About</a>
+        <div class="nav-cart" title="Cart">🛒 <span class="nav-cart-count">0</span></div>
+      </div>
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="fade-up">
+          <div class="hero-tag">Not Just a Store — A System</div>
+          <h1>Furniture That <em>Grows</em> With Your Life</h1>
+          <p class="hero-lead">Plan your home in phases. Start in your dorm, expand into your apartment, complete in your first home. Every modular piece ships flat, folds compact, and carries forward — zero waste.</p>
+          <div class="hero-actions">
+            <a href="#shop" class="btn btn-amber btn-lg">Shop Modules</a>
+            <a href="dorm.html" class="btn btn-outline btn-lg">See Home Plans →</a>
+          </div>
+          <div class="hero-proof">
+            <div class="hero-proof-item"><strong>24</strong> modular pieces</div>
+            <div class="hero-proof-item"><strong>3</strong> life phases</div>
+            <div class="hero-proof-item"><strong>$3,100+</strong> saved vs. traditional</div>
+          </div>
+        </div>
+        <div class="hero-visual fade-up fade-up-d2">
+          <span class="hero-visual-label">YOUR HOME PLAN</span>
+          <div class="phase-mini-cards">
+            <a href="dorm.html" class="phase-mini">
+              <div class="phase-mini-icon">🎓</div>
+              <div class="phase-mini-title">College Dorm</div>
+              <div class="phase-mini-sub">7 modules</div>
+              <div class="phase-mini-price">$493</div>
+            </a>
+            <a href="apartment.html" class="phase-mini">
+              <div class="phase-mini-icon">🏢</div>
+              <div class="phase-mini-title">Apartment</div>
+              <div class="phase-mini-sub">+8 modules</div>
+              <div class="phase-mini-price">$862</div>
+            </a>
+            <a href="home.html" class="phase-mini">
+              <div class="phase-mini-icon">🏠</div>
+              <div class="phase-mini-title">First Home</div>
+              <div class="phase-mini-sub">+9 modules</div>
+              <div class="phase-mini-price">$891</div>
+            </a>
+          </div>
+          <div class="hero-visual-note">Lifetime total: <strong>$2,246</strong> for 24 modules — vs. $5,400+ buying disposable furniture 3 times</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY NOT AMAZON -->
+  <section class="why-section" id="about">
+    <div class="container">
+      <div class="why-header">
+        <div class="section-tag">Why FurnishThings</div>
+        <h2>What Amazon Can't Do</h2>
+        <p>Amazon sells furniture. We help you plan your life and sell the furniture to match.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fade-up">
+          <div class="why-icon">📐</div>
+          <h3>Home Phase Planning</h3>
+          <p>We map your furniture to your life stage — dorm, apartment, house. Buy what you need now, and it all connects later.</p>
+        </div>
+        <div class="why-card fade-up fade-up-d1">
+          <div class="why-icon">🔗</div>
+          <h3>Modular & Expandable</h3>
+          <p>Every piece connects to every other piece. Your dorm nightstand becomes part of your apartment TV console becomes your home media wall.</p>
+        </div>
+        <div class="why-card fade-up fade-up-d2">
+          <div class="why-icon">📦</div>
+          <h3>Ships Flat, Folds Compact</h3>
+          <p>Designed for people who move. Everything flat-packs in 15 minutes. No bulky delivery trucks. Fits in a car trunk.</p>
+        </div>
+        <div class="why-amazon">
+          <h3>Amazon: A Search Box. FurnishThings: A Plan.</h3>
+          <p>On Amazon, you search "desk" and get 50,000 results. Here, you tell us your life phase and we give you exactly what you need — and it all works together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section class="shop-section" id="shop">
+    <div class="container">
+      <div class="shop-header">
+        <div class="shop-header-text">
+          <h2>Shop Our Collection</h2>
+          <p>Modular pieces and curated furniture — all designed to ship flat and connect.</p>
+        </div>
+        <div class="shop-filters">
+          <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+          <button class="filter-btn" onclick="filterProducts('modular')">🔗 GrowWith Modular</button>
+          <button class="filter-btn" onclick="filterProducts('living')">Living Room</button>
+          <button class="filter-btn" onclick="filterProducts('bedroom')">Bedroom</button>
+          <button class="filter-btn" onclick="filterProducts('dining')">Dining</button>
+          <button class="filter-btn" onclick="filterProducts('office')">Office</button>
+        </div>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- HOME PLANS BANNER -->
+  <section class="plans-banner">
+    <div class="container">
+      <div class="plans-inner">
+        <div class="plans-text">
+          <div class="section-tag" style="color:var(--amber-light);">★ Only at FurnishThings</div>
+          <h2>Plan Your Home in <em>Phases</em></h2>
+          <p>This is what makes us different. We don't just sell furniture — we map every piece to your life stage so nothing gets wasted and everything connects. Start with a dorm kit, expand into an apartment setup, complete a full home. Zero waste, zero repurchase.</p>
+          <div class="plans-phases">
+            <a href="dorm.html" class="plans-phase-btn p1"><div class="ppb-icon">🎓</div><span class="ppb-label">Phase 1: Dorm</span><span class="ppb-sub">7 modules · $493</span></a>
+            <a href="apartment.html" class="plans-phase-btn p2"><div class="ppb-icon">🏢</div><span class="ppb-label">Phase 2: Apartment</span><span class="ppb-sub">+8 modules · $862</span></a>
+            <a href="home.html" class="plans-phase-btn p3"><div class="ppb-icon">🏠</div><span class="ppb-label">Phase 3: Home</span><span class="ppb-sub">+9 modules · $891</span></a>
+          </div>
+        </div>
+        <div class="plans-visual">
+          <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="70" width="50" height="50" rx="6" fill="#c2790e" opacity="0.25" stroke="#c2790e" stroke-width="1.5"/>
+            <rect x="65" y="70" width="50" height="50" rx="6" fill="#c2790e" opacity="0.25" stroke="#c2790e" stroke-width="1.5"/>
+            <text x="62" y="60" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle">DORM</text>
+            <text x="62" y="140" font-family="sans-serif" font-size="9" fill="#c2790e" text-anchor="middle">$493</text>
+            <line x1="125" y1="95" x2="145" y2="95" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="3"/>
+            <polygon points="145,91 153,95 145,99" fill="rgba(255,255,255,0.3)"/>
+            <rect x="160" y="40" width="35" height="35" rx="4" fill="#c2790e" opacity="0.15" stroke="#c2790e" stroke-width="1" stroke-dasharray="2"/>
+            <rect x="200" y="40" width="35" height="35" rx="4" fill="#2d8a5e" opacity="0.25" stroke="#2d8a5e" stroke-width="1.5"/>
+            <rect x="160" y="80" width="35" height="35" rx="4" fill="#2d8a5e" opacity="0.25" stroke="#2d8a5e" stroke-width="1.5"/>
+            <rect x="200" y="80" width="35" height="35" rx="4" fill="#2d8a5e" opacity="0.25" stroke="#2d8a5e" stroke-width="1.5"/>
+            <text x="197" y="30" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle">APT</text>
+            <text x="197" y="135" font-family="sans-serif" font-size="9" fill="#2d8a5e" text-anchor="middle">+$862</text>
+            <line x1="245" y1="78" x2="260" y2="78" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="3"/>
+            <polygon points="260,74 268,78 260,82" fill="rgba(255,255,255,0.3)"/>
+            <rect x="270" y="30" width="20" height="20" rx="3" fill="#c2790e" opacity="0.1" stroke="#c2790e" stroke-width="0.8" stroke-dasharray="2"/>
+            <rect x="293" y="30" width="20" height="20" rx="3" fill="#2d8a5e" opacity="0.1" stroke="#2d8a5e" stroke-width="0.8" stroke-dasharray="2"/>
+            <rect x="270" y="53" width="20" height="20" rx="3" fill="#4f46e5" opacity="0.25" stroke="#4f46e5" stroke-width="1.5"/>
+            <rect x="293" y="53" width="20" height="20" rx="3" fill="#4f46e5" opacity="0.25" stroke="#4f46e5" stroke-width="1.5"/>
+            <rect x="270" y="76" width="20" height="20" rx="3" fill="#4f46e5" opacity="0.25" stroke="#4f46e5" stroke-width="1.5"/>
+            <rect x="293" y="76" width="20" height="20" rx="3" fill="#4f46e5" opacity="0.25" stroke="#4f46e5" stroke-width="1.5"/>
+            <text x="290" y="22" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle">HOME</text>
+            <text x="290" y="115" font-family="sans-serif" font-size="9" fill="#6366f1" text-anchor="middle">+$891</text>
+            <rect x="80" y="170" width="10" height="10" rx="2" fill="#c2790e" opacity="0.3"/>
+            <text x="96" y="179" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">Phase 1</text>
+            <rect x="140" y="170" width="10" height="10" rx="2" fill="#2d8a5e" opacity="0.3"/>
+            <text x="156" y="179" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">Phase 2</text>
+            <rect x="200" y="170" width="10" height="10" rx="2" fill="#4f46e5" opacity="0.3"/>
+            <text x="216" y="179" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">Phase 3</text>
+            <text x="160" y="205" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-weight="600">24 modules · $2,246 total · $0 waste</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULES -->
+  <section class="modules-section" id="modules">
+    <div class="container">
+      <div class="modules-header">
+        <div class="section-tag">GrowWith Modular System</div>
+        <h2>The Building Blocks</h2>
+        <p>Six core module types. Infinite configurations. Every piece connects, stacks, and ships flat.</p>
+      </div>
+      <div class="modules-showcase">
+        <div class="mod-card"><div class="mod-icon">📦</div><div class="mod-name">Base Cube</div><div class="mod-dims">18" × 18" × 18" · Birch plywood</div><div class="mod-desc">The foundation. Stack, connect, fill with drawers. Nightstand, TV console, shelf unit — all from one module.</div><div class="mod-price">$69 each</div></div>
+        <div class="mod-card"><div class="mod-icon">🖥️</div><div class="mod-name">Desk Top</div><div class="mod-dims">42" × 20" · Bamboo + steel</div><div class="mod-desc">Sits on two cubes. Cable management channel. Becomes a desk, vanity, or console table.</div><div class="mod-price">$119 each</div></div>
+        <div class="mod-card"><div class="mod-icon">📚</div><div class="mod-name">Shelf Rail</div><div class="mod-dims">36"H × 20"W · Wall or cube mount</div><div class="mod-desc">Adjustable shelves slide and lock. Mount to walls or cube tops. Combine 4 for a full bookcase.</div><div class="mod-price">$89 each</div></div>
+        <div class="mod-card"><div class="mod-icon">🗄️</div><div class="mod-name">Drawer Insert</div><div class="mod-dims">16" × 16" × 8" · Soft-close</div><div class="mod-desc">Slides into any cube. Felt-lined, two per cube. Transform cubes into dressers, filing cabinets, anything.</div><div class="mod-price">$39 each</div></div>
+        <div class="mod-card"><div class="mod-icon">🛋️</div><div class="mod-name">Sofa Module</div><div class="mod-dims">30" × 30" × 28"H · Steel frame</div><div class="mod-desc">Click-connects with other modules. 2 = loveseat, 5 = sectional. Washable cushion covers.</div><div class="mod-price">$179 each</div></div>
+        <div class="mod-card"><div class="mod-icon">🍽️</div><div class="mod-name">Dining Top</div><div class="mod-dims">48" × 24" · Bamboo, seats 4</div><div class="mod-desc">Same bracket system as desk top. Sits on any two cubes. Instant dining table with hidden storage.</div><div class="mod-price">$139 each</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter" id="contact">
+    <div class="container">
+      <h2>Get Your Home Plan First</h2>
+      <p>Join the waitlist. We'll send your personalized phase plan and early access pricing.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit" class="btn btn-amber">Join Waitlist</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><div class="logo">🛋️ Furnish<em>Things</em></div><p>Modular furniture that grows with your life. Plan in phases, buy once, build forever.</p></div>
+        <div class="footer-links"><h4>Home Plans</h4><a href="dorm.html">Phase 1: Dorm</a><a href="apartment.html">Phase 2: Apartment</a><a href="home.html">Phase 3: Home</a></div>
+        <div class="footer-links"><h4>Shop</h4><a href="#shop">All Products</a><a href="#modules">GrowWith Modules</a><a href="#">Accessories</a></div>
+        <div class="footer-links"><h4>Help</h4><a href="#">Assembly Guide</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#contact">Contact</a></div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-disclaimer">⚠️ Demo/concept site — products shown are for illustration. Store is not yet operational.</div>
+        <p>&copy; 2026 FurnishThings. A product of <a href="https://aiunites.github.io/aiunites-site">AIUNITES</a></p>
+        <div class="footer-legal"><a href="https://aiunites.github.io/aiunites-site/legal.html#privacy">Privacy Policy</a><a href="https://aiunites.github.io/aiunites-site/legal.html#terms">Terms of Service</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeQUi49AdTBRjetz5MDFQgMIkm9-vOMb_ARKwYEz41j_Nfiwg/viewform?usp=pp_url&entry.2053726945=FurnishThings" target="_blank" style="position:fixed;bottom:24px;right:24px;padding:0 16px;height:44px;background:linear-gradient(135deg,var(--amber),var(--amber-dark));border-radius:22px;display:flex;align-items:center;gap:6px;font-size:0.82rem;font-weight:600;color:#fff;box-shadow:0 4px 20px rgba(194,121,14,0.3);transition:all 0.3s;z-index:999;">💬 Feedback</a>
+
+  <script>
+    const PRODUCTS = [
+      { id:'gw-001', name:'Base Cube', cat:'modular', catLabel:'GrowWith Modular', price:69, icon:'📦', desc:'18" cube — nightstand, desk support, shelf unit. Connects & stacks.', rating:4.8, reviews:2134, tag:'modular', ships:true },
+      { id:'gw-002', name:'Desk Top Surface', cat:'modular', catLabel:'GrowWith Modular', price:119, icon:'🖥️', desc:'42"×20" bamboo top. Sits on 2 cubes. Cable management built in.', rating:4.7, reviews:987, tag:'modular', ships:true },
+      { id:'gw-003', name:'Shelf Rail System', cat:'modular', catLabel:'GrowWith Modular', price:89, icon:'📚', desc:'36" tall, 3 adjustable shelves. Wall-mount or cube-mount.', rating:4.6, reviews:765, tag:'modular', ships:true },
+      { id:'gw-004', name:'Storage Drawer Insert', cat:'modular', catLabel:'GrowWith Modular', price:39, icon:'🗄️', desc:'Soft-close, felt-lined. Slides into any Base Cube.', rating:4.7, reviews:1567, tag:'modular', ships:true },
+      { id:'gw-005', name:'Sofa Module', cat:'modular', catLabel:'GrowWith Modular', price:179, icon:'🛋️', desc:'Click-connect seat. 2 = loveseat, 5 = sectional. Steel frame, washable.', rating:4.5, reviews:892, tag:'modular', ships:true },
+      { id:'gw-006', name:'Dining Table Top', cat:'modular', catLabel:'GrowWith Modular', price:139, icon:'🍽️', desc:'48"×24" bamboo. Seats 4. Sits on 2 cubes for instant dining.', rating:4.6, reviews:634, tag:'modular', ships:true },
+      { id:'lr-001', name:'Milano Sectional Sofa', cat:'living', catLabel:'Living Room', price:1299, was:1599, icon:'🛋️', desc:'L-shaped, velvet upholstery, reversible chaise. 104" wide.', rating:4.5, reviews:1247, tag:'sale', ships:true },
+      { id:'lr-002', name:'Scandinavian Accent Chair', cat:'living', catLabel:'Living Room', price:349, was:449, icon:'🪑', desc:'Boucle fabric, walnut frame. Mid-century modern.', rating:4.7, reviews:892, tag:'bestseller' },
+      { id:'lr-003', name:'Industrial Coffee Table', cat:'living', catLabel:'Living Room', price:289, was:379, icon:'🪵', desc:'Reclaimed wood top, black steel frame. 48"×24".', rating:4.4, reviews:634, tag:'sale' },
+      { id:'br-001', name:'Nordic Platform Bed', cat:'bedroom', catLabel:'Bedroom', price:899, was:1099, icon:'🛏️', desc:'Queen, solid oak frame, upholstered headboard. No box spring.', rating:4.6, reviews:2134, tag:'bestseller', ships:true },
+      { id:'br-002', name:'Memory Foam Mattress', cat:'bedroom', catLabel:'Bedroom', price:599, was:799, icon:'🌙', desc:'12" gel-infused, CertiPUR-US certified. Ships compressed.', rating:4.4, reviews:3421, tag:'sale', ships:true },
+      { id:'br-003', name:'Nightstand + USB Charging', cat:'bedroom', catLabel:'Bedroom', price:179, was:229, icon:'🔌', desc:'2 drawers, USB-C ports, LED strip option.', rating:4.7, reviews:1567, tag:'new', ships:true },
+      { id:'dn-001', name:'Farmhouse Dining Table', cat:'dining', catLabel:'Dining', price:749, was:899, icon:'🍽️', desc:'Seats 6, solid acacia wood, trestle base. 72"×36".', rating:4.5, reviews:1876, tag:'bestseller', ships:true },
+      { id:'dn-002', name:'Windsor Chair Set (4)', cat:'dining', catLabel:'Dining', price:399, was:499, icon:'🪑', desc:'Solid wood, spindle back. Classic farmhouse style.', rating:4.4, reviews:2341, tag:'sale' },
+      { id:'of-001', name:'Standing Desk (Electric)', cat:'office', catLabel:'Office', price:499, was:649, icon:'💻', desc:'Height adjustable, 55"×28", memory presets. Ships flat.', rating:4.7, reviews:2876, tag:'bestseller', ships:true },
+      { id:'of-002', name:'Ergonomic Mesh Chair', cat:'office', catLabel:'Office', price:349, was:449, icon:'🪑', desc:'Lumbar support, adjustable arms, breathable mesh.', rating:4.5, reviews:4521, tag:'sale' },
+    ];
+
+    function renderProducts(filter = 'all') {
+      const grid = document.getElementById('productsGrid');
+      const filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
+      grid.innerHTML = filtered.map(p => {
+        const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 >= 0.5 ? '½' : '');
+        const tagClass = p.tag === 'sale' ? 'sale' : p.tag === 'new' ? 'new' : p.tag === 'modular' ? 'modular' : 'bestseller';
+        const tagLabel = p.tag === 'sale' ? 'SALE' : p.tag === 'new' ? 'NEW' : p.tag === 'modular' ? '🔗 MODULAR' : 'BESTSELLER';
+        return `<div class="product-card" data-cat="${p.cat}"><div class="product-img-wrap"><div class="product-img">${p.icon}</div>${p.tag ? `<span class="product-tag ${tagClass}">${tagLabel}</span>` : ''}</div><div class="product-body"><div class="product-cat">${p.catLabel}</div><div class="product-name">${p.name}</div><div class="product-desc">${p.desc}</div><div class="product-rating">${stars} <span>(${p.reviews.toLocaleString()})</span></div><div class="product-pricing"><span class="product-price">$${p.price}</span>${p.was ? `<span class="product-was">$${p.was}</span>` : ''}</div>${p.ships ? '<div class="product-ships">📦 Ships flat — fits in a car trunk</div>' : ''}</div></div>`;
+      }).join('');
+    }
+
+    function filterProducts(cat) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderProducts(cat);
+    }
+
+    window.addEventListener('scroll', () => { document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50); });
+
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+      document.getElementById('hamburgerBtn').classList.toggle('active');
+    }
+    function toggleMobileDropdown(e) {
+      if (window.innerWidth <= 768) { e.preventDefault(); document.getElementById('homePlansDropdown').classList.toggle('open-mobile'); }
+    }
+
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = this.querySelector('input').value;
+      const btn = this.querySelector('button');
+      const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSeQUi49AdTBRjetz5MDFQgMIkm9-vOMb_ARKwYEz41j_Nfiwg/formResponse';
+      const formData = new FormData();
+      formData.append('entry.904300305', email);
+      formData.append('entry.2053726945', 'FurnishThings');
+      fetch(formUrl, { method:'POST', body:formData, mode:'no-cors' });
+      btn.textContent = '✓ You\'re on the list!';
+      btn.style.background = '#2d8a5e';
+      this.querySelector('input').value = '';
+      setTimeout(() => { btn.textContent = 'Join Waitlist'; btn.style.background = ''; }, 3000);
+    });
+
+    (function(){
+      if(location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1'){
+        document.querySelectorAll('.aiunites-bar a').forEach(a=>{
+          a.href=a.href.replace('https://aiunites.github.io/','../')+'index.html';
+        });
+      }
+    })();
+
+    renderProducts();
+  </script>
+</body>
+</html>
