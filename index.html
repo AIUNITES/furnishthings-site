@@ -90,15 +90,16 @@
   <nav class="nav">
     <div class="container nav-container">
       <a href="#" class="logo">🛋️ Furnish<span>Things</span></a>
-      <div class="nav-links">
-        <a href="#categories">Shop</a>
+      <div class="nav-links" id="ft-nav-links">
+        <a href="#categories" onclick="document.getElementById('ft-nav-links').classList.remove('open');document.getElementById('ft-hamburger').classList.remove('open')">Shop</a>
         <a href="compare.html" style="color:#d97706;font-weight:600">⚖️ Compare</a>
         <a href="dorm.html">Dorm</a>
         <a href="apartment.html">Apartment</a>
         <a href="home.html">First Home</a>
         <a href="#about">About</a>
-        <a href="#contact" class="btn btn-primary">Contact Us</a>
+        <a href="#contact" class="btn btn-primary" onclick="document.getElementById('ft-nav-links').classList.remove('open');document.getElementById('ft-hamburger').classList.remove('open')">Contact Us</a>
       </div>
+      <button class="nav-hamburger" id="ft-hamburger" aria-label="Menu" onclick="this.classList.toggle('open');document.getElementById('ft-nav-links').classList.toggle('open')"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
