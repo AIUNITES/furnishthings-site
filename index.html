@@ -99,7 +99,7 @@
         <a href="#about">About</a>
         <a href="#contact" class="btn btn-primary" onclick="document.getElementById('ft-nav-links').classList.remove('open');document.getElementById('ft-hamburger').classList.remove('open')">Contact Us</a>
       </div>
-      <button class="nav-hamburger" id="ft-hamburger" aria-label="Menu" onclick="this.classList.toggle('open');document.getElementById('ft-nav-links').classList.toggle('open')"><span></span><span></span><span></span></button>
+      <button class="nav-hamburger" id="ft-hamburger" aria-label="Menu" onclick="var m=document.getElementById('ft-nav-links');m.style.top=this.closest('nav').getBoundingClientRect().bottom+'px';this.classList.toggle('open');m.classList.toggle('open')"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
